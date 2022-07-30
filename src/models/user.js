@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import bcrypt from 'bcrypt';
 import environment from '../config/environment';
 
-export default(sequelize) => {
+export default (sequelize) => {
   class User extends Model {
-    static associate(models){
+    static associate(models) {
       User.RefreshToken = User.hasOne(models.RefreshToken);
       User.Roles = User.hasMany(models.Role);
     }
 
-    static async hashPassword(password){
+    static async hashPassword(password) {
       return bcrypt.hash(password, environment.saltRounds);
     }
 
@@ -47,18 +47,18 @@ export default(sequelize) => {
 
   User.init(
     {
-      email:{ 
+      email: {
         type: DataTypes.STRING(100),
         allowNull: false,
         unique: true,
         validate: {
           isEmail: {
-            msg:'Not a valid email address',
+            msg: 'Not a valid email address',
           },
           notNull: {
             msg: 'Email is required',
           },
-        },  
+        },
       },
       password: {
         type: DataTypes.STRING,
@@ -92,11 +92,11 @@ export default(sequelize) => {
           },
         },
       },
-    }, 
+    },
     {
-      sequelize, 
-      modelName: 'User', 
-      defaultScope: { attributes: { exclude: ['password'] } }, 
+      sequelize,
+      modelName: 'User',
+      defaultScope: { attributes: { exclude: ['password'] } },
       scopes: {
         withPassword: {
           attributes: { include: ['password'] },

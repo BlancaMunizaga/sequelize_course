@@ -1,5 +1,6 @@
-#Sequelize course
+# Sequelize course
 
-##Prerequisites
+## Prerequisites
 
-*NVM *Docker
+* NVM 
+* Docker
